@@ -1,20 +1,32 @@
 package edu.m2i.projetJEE.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Abonne {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	@Column(nullable = false)
 	private String nom;
+	@Column(nullable = false)
 	private String prenom;
+	@Column(nullable = false)
 	private String adresse;
+	@Column(nullable = false)
 	private String login;
+	@Column(nullable = false)
 	private String password;
+	@OneToMany(mappedBy = "abonne", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Emprunt> emprunts;
 
 	public Abonne() {
 		super();

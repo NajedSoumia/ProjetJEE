@@ -2,21 +2,33 @@ package edu.m2i.projetJEE.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Emprunt {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Integer id;
-	Abonne abonne;
-	Ouvrage ouvrage;
+	@Column(nullable = false)
 	LocalDate dateDebut;
+	@Column(nullable = false)
 	Integer duree;
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "id_statut")
 	Statut statut;
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "id_abonne")
+	Abonne abonne;
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "id_ouvrage")
+	Ouvrage ouvrage;
 	
 	public Emprunt() {
         super();
